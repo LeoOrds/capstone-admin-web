@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useLocation, Navigate, useNavigate } from 'react-router-dom';
-import { LayoutDashboard, Users, GraduationCap, Settings, LogOut, Activity, Plus, Edit, X, UploadCloud, Search, Loader2, ClipboardList, Trash2, Building2, Eye, AlertCircle, Menu } from 'lucide-react';
+import { LayoutDashboard, Users, GraduationCap,  LogOut, Activity, Plus, Edit, X, UploadCloud, Search, Loader2, ClipboardList, Trash2, Building2, Eye, AlertCircle, Menu } from 'lucide-react';
 
 // localhost
 // http://localhost:5000

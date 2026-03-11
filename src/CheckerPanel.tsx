@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useLocation, Navigate, useNavigate } from 'react-router-dom';
-import { LogOut, Printer, Send, Camera, X, Building2, Clock, AlertCircle, Menu } from 'lucide-react';
+import { LogOut, Printer, Send, Camera, X, Building2, Clock,  Menu } from 'lucide-react';
 
 interface LocationState { role: string; username: string; }
 
