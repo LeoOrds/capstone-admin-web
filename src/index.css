@@ -1,0 +1,18 @@
+@import "tailwindcss";
+
+@theme {
+  /* Deepest Violet from the background edges - Sidebars, Headers */
+  --color-brand-dark: #2A0845;  
+
+  /* Rich Purple from the "32" - Primary Buttons, Active States */
+  --color-brand: #7B1FA2;       
+
+  /* Bright Purple/Magenta - Hovers, Accents */
+  --color-brand-light: #AB47BC; 
+
+  /* Soft Lilac - Borders, Muted Elements */
+  --color-brand-muted: #E1BEE7; 
+
+  /* Very pale violet tint for the background to make white cards pop */
+  --color-brand-bg: #F8F3FA;    
+}
