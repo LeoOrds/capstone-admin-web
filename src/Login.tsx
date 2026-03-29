@@ -26,15 +26,11 @@ export default function Login() {
       const data = await response.json();
 
       if (data.success) {
-        // Small delay to show the loading spinner for effect
-        setTimeout(() => {
-          if (data.role === 'Admin') {
-            // PASS THE USERNAME IN THE STATE!
-            navigate('/dashboard', { state: { role: data.role, username: username } });
-          } else {
-            navigate('/checker-panel', { state: { role: data.role, username: username } });
-          }
-        }, 500);
+        // 1. Save the role to the browser's temporary memory
+        sessionStorage.setItem('userRole', data.role);
+
+        // 2. Navigate without needing the fragile state package!
+        navigate('/dashboard');
       } else {
         setError(data.message || 'Invalid credentials');
         setIsLoading(false);
@@ -47,7 +43,7 @@ export default function Login() {
 
   return (
     // Full screen background image
-    <div 
+    <div
       className="min-h-screen bg-cover bg-center flex items-center justify-center relative"
       style={{ backgroundImage: `url(${bgImage})` }}
     >
@@ -56,14 +52,14 @@ export default function Login() {
 
       {/* Login Card with "Frosted Glass" effect */}
       <div className="relative z-10 bg-white/90 p-8 rounded-2xl shadow-2xl w-full max-w-md backdrop-blur-md border border-white/50">
-        
+
         {/* Logo & Title */}
         <div className="text-center mb-8">
           <img src={logo} alt="FAMS Logo" className="h-20 mx-auto mb-2 " />
           <h2 className="text-2xl font-bold text-brand-dark">Welcome Back</h2>
           <p className="text-slate-500 text-sm">Sign in to access the attendance system</p>
         </div>
-        
+
         {error && (
           <div className="p-3 mb-6 text-sm text-red-700 bg-red-50 rounded-lg border border-red-100 text-center">
             {error}
@@ -73,9 +69,9 @@ export default function Login() {
         <form onSubmit={handleLogin} className="flex flex-col gap-5">
           <div className="relative">
             <User className="absolute left-3 top-1/2 transform -translate-y-1/2 text-brand-dark/50" size={20} />
-            <input 
-              type="text" 
-              placeholder="Username" 
+            <input
+              type="text"
+              placeholder="Username"
               className="w-full pl-10 pr-4 py-3 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-brand focus:border-transparent bg-white/50 transition-all"
               value={username}
               onChange={(e) => setUsername(e.target.value)}
@@ -84,25 +80,25 @@ export default function Login() {
           </div>
           <div className="relative">
             <Lock className="absolute left-3 top-1/2 transform -translate-y-1/2 text-brand-dark/50" size={20} />
-            <input 
-              type="password" 
-              placeholder="Password" 
+            <input
+              type="password"
+              placeholder="Password"
               className="w-full pl-10 pr-4 py-3 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-brand focus:border-transparent bg-white/50 transition-all"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               required
             />
           </div>
-          
-          <button 
-            type="submit" 
+
+          <button
+            type="submit"
             disabled={isLoading}
             className="w-full p-3 text-white bg-gradient-to-r from-brand-dark to-brand rounded-xl hover:from-brand hover:to-brand-light transition-all duration-300 font-bold shadow-lg shadow-brand/20 flex items-center justify-center disabled:opacity-70"
           >
             {isLoading ? <Loader2 className="animate-spin mr-2" /> : 'Sign In'}
           </button>
         </form>
-        
+
         <div className="mt-6 text-center text-sm text-slate-500">
           © 2026 Faculty Attendance Monitoring System
         </div>
