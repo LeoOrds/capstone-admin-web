@@ -10,9 +10,19 @@
   /* Bright Purple/Magenta - Hovers, Accents */
   --color-brand-light: #AB47BC; 
 
-  /* Soft Lilac - Borders, Muted Elements */
+  /* Soft Lilac - Borders, Muted Elements */  
   --color-brand-muted: #E1BEE7; 
 
   /* Very pale violet tint for the background to make white cards pop */
   --color-brand-bg: #F8F3FA;    
+}
+/* Nukes the default blue text selection highlight */
+::selection {
+  background-color: #7c3aed; /* Replace with your exact brand HEX code! */
+  color: white;
+}
+
+/* Forces native browser inputs (like checkboxes and clocks) to use your color */
+:root {
+  accent-color: #7c3aed; /* Replace with your exact brand HEX code! */
 }

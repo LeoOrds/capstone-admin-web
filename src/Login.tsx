@@ -1,11 +1,12 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { User, Lock, Loader2 } from 'lucide-react';
+import { Eye, EyeOff, User, Lock, Loader2 } from 'lucide-react';
 // Import your new assets
 import logo from './assets/logo1.jpg';
 import bgImage from './assets/login-bg.jpg';
 
 export default function Login() {
+  const [showPassword, setShowPassword] = useState(false);  
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
@@ -25,12 +26,18 @@ export default function Login() {
       });
       const data = await response.json();
 
+      // Inside your Login.tsx fetch response...
       if (data.success) {
-        // 1. Save the role to the browser's temporary memory
+        // 1. Save both pieces of data to the browser memory!
         sessionStorage.setItem('userRole', data.role);
+        sessionStorage.setItem('username', data.username);
 
-        // 2. Navigate without needing the fragile state package!
-        navigate('/dashboard');
+        // 2. Send them to the right dashboard
+        if (data.role.startsWith('Checker')) {
+          navigate('/checker-panel'); // No need to pass { state } anymore!
+        } else {
+          navigate('/dashboard');
+        }
       } else {
         setError(data.message || 'Invalid credentials');
         setIsLoading(false);
@@ -78,16 +85,24 @@ export default function Login() {
               required
             />
           </div>
+          
           <div className="relative">
             <Lock className="absolute left-3 top-1/2 transform -translate-y-1/2 text-brand-dark/50" size={20} />
             <input
-              type="password"
+              type={showPassword ? "text" : "password"}
               placeholder="Password"
-              className="w-full pl-10 pr-4 py-3 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-brand focus:border-transparent bg-white/50 transition-all"
+              className="w-full pl-10 pr-12 py-3 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-brand focus:border-transparent bg-white/50 transition-all"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               required
             />
+            <button
+              type="button"
+              onClick={() => setShowPassword(!showPassword)}
+              className="absolute right-4 top-1/2 transform -translate-y-1/2 text-slate-400 hover:text-brand transition-colors"
+            >
+              {showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
+            </button>
           </div>
 
           <button
